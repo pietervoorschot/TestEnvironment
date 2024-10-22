@@ -1,0 +1,80 @@
+﻿@page "/"
+
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<PageTitle>Home</PageTitle>
+
+<FluentStack Style="margin-bottom: 12px;">
+
+    <FluentCard>
+        <p>Click this button to open a Menu.</p>
+        <FluentButton Id="btnOpenMenuProvider1"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => _open1 = !_open1)">
+            Open menu
+        </FluentButton>
+
+        <!-- UseMenuService="false" -->
+        <FluentMenu UseMenuService="false"
+                    Anchor="btnOpenMenuProvider1"
+                    @bind-Open="_open1"
+                    VerticalThreshold="170">
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
+        </FluentMenu>
+    </FluentCard>
+
+    <FluentCard>
+        <p>Click this button to open a Menu.</p>
+        <FluentButton Id="btnOpenMenuProvider2"
+                      Appearance="Appearance.Accent"
+                      OnClick="@(() => _open2 = !_open2)">
+            Open menu
+        </FluentButton>
+
+        <!-- UseMenuService="true" (or undefined) -->
+        <FluentMenu UseMenuService="true"
+                    Anchor="btnOpenMenuProvider2"
+                    @bind-Open="_open2"
+                    VerticalThreshold="170">
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem>Menu item 2</FluentMenuItem>
+        </FluentMenu>
+    </FluentCard>
+
+</FluentStack>
+<FluentStack Orientation="Orientation.Horizontal" Width="100%">
+    <div>
+        <FluentNavMenu @bind-Expanded="@_expanded" Width="250" Collapsible="true" CollapsedChildNavigation="@_enableCollapsedChildNavigation" Title="Collapsible demo">
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Home())" Tooltip="Item 1 tooltip">Item 1</FluentNavLink>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())" Disabled="true" Tooltip="Item 2 tooltip">Item 2</FluentNavLink>
+            <FluentNavGroup Title="Item 3" Tooltip="Item 3 tooltip" Icon="@(new Icons.Regular.Size24.EarthLeaf())">
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" Tooltip="Item 3.1 tooltip">Item 3.1</FluentNavLink>
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())" Disabled="true" Tooltip="Item 3.2 tooltip">Item 3.2</FluentNavLink>
+                <FluentNavGroup Title="Item 3.3" Tooltip="Item 3.3 tooltip" Icon="@(new Icons.Regular.Size24.LeafThree())">
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.3.1 tooltip">https://microsoft.com</FluentNavLink>
+                </FluentNavGroup>
+                <FluentNavGroup Title="Item 3.4" Tooltip="Item 3.4 tooltip" Icon="@(new Icons.Regular.Size24.TreeDeciduous())" Disabled="true">
+                    <FluentNavLink Icon="@(new Icons.Regular.Size24.Earth())" Href="https://microsoft.com" Tooltip="Item 3.4.1 tooltip">https://microsoft.com</FluentNavLink>
+                </FluentNavGroup>
+            </FluentNavGroup>
+            <FluentNavLink Tooltip="Item 4 tooltip">Item 4</FluentNavLink>
+            <FluentNavGroup Title="Item 5" Tooltip="Item 5 tooltip">
+                <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())" Tooltip="Item 5.1 tooltip">Item 5.1</FluentNavLink>
+            </FluentNavGroup>
+            <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="true" Href="https://microsoft.com" Tooltip="Item 6 tooltip">Item 6</FluentNavLink>
+        </FluentNavMenu>
+    </div>
+    <div style="width: 100%;">
+        <div style="margin-bottom: 12px;">
+            <FluentSwitch @bind-Value="_enableCollapsedChildNavigation" CheckedMessage="Disable collapsed child navigation" UncheckedMessage="Enable collapsed child navigation"></FluentSwitch>
+        </div>
+    </div>
+</FluentStack>
+
+@code {
+    bool _open1 = false;
+    bool _open2 = false;
+    bool _expanded = true;
+    bool _enableCollapsedChildNavigation = true;
+}
